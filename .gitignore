@@ -32,3 +32,7 @@ sysinfo.txt
 # Builds
 *.apk
 *.unitypackage
+
+#AssetStore assets
+Assets/Asteroid Game Pack/
+Assets/Asteroid Game Pack.meta
