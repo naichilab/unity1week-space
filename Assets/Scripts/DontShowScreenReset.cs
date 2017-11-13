@@ -1,7 +1,12 @@
 ﻿using UnityEngine;
 using System.Collections;
+using Zenject;
+
 public class DontShowScreenReset : MonoBehaviour
 {
+    [Inject] private ScreenManager screenManager;
+
+
     [Range(0, 10)]
     public float
         speed = 10;
@@ -16,7 +21,7 @@ public class DontShowScreenReset : MonoBehaviour
         transform.position += Vector3.left * speed * Time.deltaTime;
 #if UNITY_EDITOR
         var spritex = (transform.position + spriteSize / 2).x;
-        if (spritex < ScreenManager.Instance.screenRect.x)
+        if (spritex < screenManager.screenRect.x)
         {
             OnBecameInvisible();
         }
