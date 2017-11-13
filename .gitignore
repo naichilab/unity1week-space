@@ -34,7 +34,9 @@ sysinfo.txt
 *.unitypackage
 
 #AssetStore assets
-Assets/Asteroid Game Pack/
-Assets/Asteroid Game Pack.meta
+Asteroid Game Pack.meta
+Asteroid Game Pack/
 Zenject.meta
 Zenject/
+UniRx.meta
+UniRx/
