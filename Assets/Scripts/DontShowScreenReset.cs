@@ -1,35 +1,37 @@
-﻿using UnityEngine;
-using System.Collections;
+﻿using System.Xml;
+using UnityEngine;
 using Zenject;
 
 public class DontShowScreenReset : MonoBehaviour
 {
     [Inject] private ScreenManager screenManager;
 
+    [Range(0, 100)]
+    public float Speed = 10;
+    public int SpriteCount = 3;
 
-    [Range(0, 10)]
-    public float
-        speed = 10;
-    public int spriteCount = 3;
-    Vector3 spriteSize;
-    void Start()
+    private Vector3 spriteSize;
+
+    private void Start()
     {
         spriteSize = GetComponent<SpriteRenderer>().bounds.size;
     }
-    void Update()
+
+    private void Update()
     {
-        transform.position += Vector3.left * speed * Time.deltaTime;
+        transform.position += Vector3.down * Speed * Time.deltaTime;
 #if UNITY_EDITOR
-        var spritex = (transform.position + spriteSize / 2).x;
-        if (spritex < screenManager.screenRect.x)
+        var spritey = (transform.position + spriteSize / 2).y;
+        if (spritey < screenManager.screenRect.y)
         {
             OnBecameInvisible();
         }
 #endif
     }
-    void OnBecameInvisible()
+
+    private void OnBecameInvisible()
     {
-        float width = GetComponent<SpriteRenderer>().bounds.size.x;
-        transform.position += Vector3.right * width * spriteCount;
+        var height = GetComponent<SpriteRenderer>().bounds.size.y;
+        transform.position += Vector3.up * height * SpriteCount;
     }
 }
