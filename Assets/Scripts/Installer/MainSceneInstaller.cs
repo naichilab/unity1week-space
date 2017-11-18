@@ -4,15 +4,16 @@ using Zenject;
 
 public class MainSceneInstaller : MonoInstaller<MainSceneInstaller>
 {
-    [SerializeField] private GameModel gameModel;
-    [SerializeField] private ShipModel shipModel;
-    [SerializeField] private GameManager gameManager;
+    [SerializeField] private GameStateModel state;
+    [SerializeField] private ShipModel ship;
+    [SerializeField] private GuageModel guage;
 
     public override void InstallBindings()
     {
         Container.Bind<ScreenManager>().AsSingle();
-        Container.Bind<GameModel>().FromInstance(gameModel).AsSingle();
-        Container.Bind<ShipModel>().FromInstance(shipModel).AsSingle();
-        Container.Bind<GameManager>().FromInstance(gameManager).AsSingle();
+
+        Container.Bind<GameStateModel>().FromInstance(state).AsSingle();
+        Container.Bind<ShipModel>().FromInstance(ship).AsSingle();
+        Container.Bind<GuageModel>().FromInstance(guage).AsSingle();
     }
 }

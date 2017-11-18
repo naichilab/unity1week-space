@@ -17,7 +17,7 @@ public class BackgroundPresenter : MonoBehaviour
         this.rects = gameObject.GetComponentsInChildren<DontShowScreenReset>().ToList();
 
         //speedを背景スクロールに適用
-        ship.Speed.Subscribe(speed =>
+        ship.SpeedToShow.Subscribe(speed =>
         {
             rects.ForEach(r => r.Speed = speed);
         });
