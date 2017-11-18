@@ -23,6 +23,7 @@ GameObject:
   - component: {fileID: 114818217589098782}
   - component: {fileID: 114323856219101982}
   - component: {fileID: 114256182811262414}
+  - component: {fileID: 114091005489431866}
   m_Layer: 5
   m_Name: Great
   m_TagString: Untagged
@@ -30,6 +31,17 @@ GameObject:
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
   m_IsActive: 1
+--- !u!114 &114091005489431866
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1233525458745700}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 7280cfa32e5a93741ba77e2b3e6ffb86, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!114 &114256182811262414
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -47,7 +59,7 @@ MonoBehaviour:
   hasOnPlay: 0
   hasOnUpdate: 0
   hasOnStepComplete: 0
-  hasOnComplete: 0
+  hasOnComplete: 1
   hasOnTweenCreated: 0
   hasOnRewind: 0
   onStart:
@@ -72,7 +84,18 @@ MonoBehaviour:
       PublicKeyToken=null
   onComplete:
     m_PersistentCalls:
-      m_Calls: []
+      m_Calls:
+      - m_Target: {fileID: 114091005489431866}
+        m_MethodName: Destroy
+        m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
     m_TypeName: UnityEngine.Events.UnityEvent, UnityEngine, Version=0.0.0.0, Culture=neutral,
       PublicKeyToken=null
   onTweenCreated:
@@ -272,13 +295,13 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   m_Material: {fileID: 0}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
-  m_RaycastTarget: 1
+  m_RaycastTarget: 0
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
     m_TypeName: UnityEngine.UI.MaskableGraphic+CullStateChangedEvent, UnityEngine.UI,
       Version=1.0.0.0, Culture=neutral, PublicKeyToken=null
-  m_Sprite: {fileID: 21300000, guid: 867bf55568e9b3443be3a03cd32e61b6, type: 3}
+  m_Sprite: {fileID: 21300000, guid: 9715d6bf92162df4d8f0790b51576419, type: 3}
   m_Type: 0
   m_PreserveAspect: 1
   m_FillCenter: 1

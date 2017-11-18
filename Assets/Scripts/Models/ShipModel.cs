@@ -98,6 +98,7 @@ public class ShipModel : MonoBehaviour
                 //加速
                 AddEnergy(energy);
                 guage.Init();
+
             }
         }
     }

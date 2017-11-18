@@ -8,3 +8,6 @@ EditorBuildSettings:
   - enabled: 1
     path: Assets/Scenes/MainScene.unity
     guid: 38d5bd3fff5f32c4d87c32e805244e0a
+  - enabled: 1
+    path: Assets/naichilab/GSSARanking/Scenes/Ranking.unity
+    guid: 152244f5855414ac4a3874f14efa583c

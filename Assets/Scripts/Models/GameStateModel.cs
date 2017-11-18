@@ -1,5 +1,6 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
+using naichilab;
 using UnityEngine;
 using UniRx;
 using UniRx.Triggers;
@@ -19,6 +20,15 @@ public class GameStateModel : MonoBehaviour
     private void Awake()
     {
         ship.Clear();
+
+        ship.CanBoost.Subscribe(c =>
+        {
+            if (this.CurrentStateIsGamePlay && !c)
+            {
+                RankingLoader.Instance.SendScoreAndShowRanking(ship.SpeedToShow.Value);
+            }
+        });
+
     }
 
     private void GameStart()
