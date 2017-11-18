@@ -33,6 +33,23 @@ public class GameStateModel : MonoBehaviour
             }
         });
 
+        CurrentState.Subscribe(s =>
+        {
+            switch (s)
+            {
+                case State.Title:
+                    BgmManager.Instance.Play("title_bgm_maoudamashii_neorock78");
+                    break;
+                case State.GamePlay:
+                    BgmManager.Instance.Play("gameplay_bgm_maoudamashii_neorock83");
+                    break;
+                case State.Result:
+                    BgmManager.Instance.Play("result_bgm_maoudamashii_neorock77");
+                    break;
+                default:
+                    throw new NotImplementedException();
+            }
+        });
     }
 
     private void GameStart()
