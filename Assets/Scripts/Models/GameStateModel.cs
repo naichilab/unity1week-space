@@ -13,6 +13,7 @@ public class GameStateModel : MonoBehaviour
 
     [Inject] private ShipModel ship;
     [Inject] private GuageModel guage;
+    [Inject] private HighscoreModel highScore;
 
     public bool CurrentStateIsTitle { get { return CurrentState.Value == global::State.Title; } }
     public bool CurrentStateIsGamePlay { get { return CurrentState.Value == global::State.GamePlay; } }
@@ -28,7 +29,7 @@ public class GameStateModel : MonoBehaviour
         {
             if (this.CurrentStateIsGamePlay && c)
             {
-                RankingLoader.Instance.SendScoreAndShowRanking(ship.SpeedToShow.Value);
+                CurrentState.Value = global::State.Result;
             }
         });
 
@@ -36,7 +37,6 @@ public class GameStateModel : MonoBehaviour
 
     private void GameStart()
     {
-        if (!CurrentStateIsTitle) return;
         ship.Clear();
         guage.Init();
 
@@ -45,7 +45,7 @@ public class GameStateModel : MonoBehaviour
 
     public void ChangeToGamePlayState()
     {
-        if (CurrentStateIsTitle)
+        if (CurrentStateIsTitle || CurrentStateIsResult)
         {
             GameStart();
         }

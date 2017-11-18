@@ -18,6 +18,8 @@ public class GoButtonPresenter : MonoBehaviour
     {
         go = GetComponent<Button>();
 
+
+        //ゲーム開始＆リトライ
         go.OnClickAsObservable()
             .Subscribe(_ =>
             {
@@ -25,8 +27,13 @@ public class GoButtonPresenter : MonoBehaviour
                 {
                     state.ChangeToGamePlayState();
                 }
+                else if (state.CurrentStateIsResult)
+                {
+                    state.ChangeToGamePlayState();
+                }
             });
 
+        //加速
         go.OnPointerDownAsObservable()
             .Subscribe(_ =>
             {
@@ -36,10 +43,23 @@ public class GoButtonPresenter : MonoBehaviour
                 }
             });
 
+        //燃料切れ
         ship.CanBoost.Subscribe(c =>
         {
-            go.interactable = c;
+            if (state.CurrentStateIsGamePlay)
+            {
+                go.interactable = c;
+            }
         });
+
+        state.CurrentState.Subscribe(s =>
+        {
+            if (s == State.Result)
+            {
+                go.interactable = true;
+            }
+        });
+
     }
 
 }

@@ -5,11 +5,13 @@ using UnityEngine;
 using Zenject;
 using UniRx;
 
-public class SpeedTextPresenter : MonoBehaviour
+public class HighScorePresenter : MonoBehaviour
 {
     private TextMeshProUGUI text;
 
     [Inject] private ShipModel ship;
+    [Inject] private HighscoreModel highScore;
+    [Inject] private GameStateModel state;
 
     private void Awake()
     {
@@ -17,7 +19,20 @@ public class SpeedTextPresenter : MonoBehaviour
 
         ship.SpeedToShow.Subscribe(s =>
         {
+            highScore.SetScore(s);
+        });
+
+        highScore.HighScore.Subscribe(s =>
+        {
             text.text = string.Format("{0}km/h", s.ToString("0.00"));
+        });
+
+        state.CurrentState.Subscribe(s =>
+        {
+            if (s == State.Result)
+            {
+                highScore.SaveHighScore();
+            }
         });
     }
 }
