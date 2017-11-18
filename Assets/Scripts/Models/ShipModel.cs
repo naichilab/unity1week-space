@@ -9,9 +9,10 @@ public class ShipModel : MonoBehaviour
 {
     private const float DefaultEnergy = 0f;
     private const float DefaultSpeed = 0f;
+    private const int MaxBoostCount = 5;
 
     //エネルギー消費率
-    private const float UseRatio = 0.2f;
+    private const float UseRatio = 0.35f;
     //エネルギー消費に対するスピード増加量
     private const float EnergyToSpeedRatio = 3f;
 
@@ -21,7 +22,12 @@ public class ShipModel : MonoBehaviour
     public FloatReactiveProperty BaseSpeed = new FloatReactiveProperty(DefaultSpeed);
     public FloatReactiveProperty SpeedToShow = new FloatReactiveProperty(DefaultSpeed);
 
+    public IntReactiveProperty RemainBoostCount = new IntReactiveProperty(0);
+    public BoolReactiveProperty CanBoost = new BoolReactiveProperty();
+
     public BoolReactiveProperty IsAccelerating = new BoolReactiveProperty(false);
+
+    public BoolReactiveProperty Broken = new BoolReactiveProperty();
 
     private void Awake()
     {
@@ -29,11 +35,16 @@ public class ShipModel : MonoBehaviour
         {
             IsAccelerating.Value = Energy.Value > 0f;
         });
+
+        RemainBoostCount.Subscribe(c =>
+        {
+            CanBoost.Value = c > 0;
+        });
     }
 
     private void Update()
     {
-        SpeedToShow.Value = BaseSpeed.Value * BaseSpeed.Value;
+        SpeedToShow.Value = BaseSpeed.Value * BaseSpeed.Value * 60 * 60;
 
         if (this.Energy.Value >= 0f)
         {
@@ -48,6 +59,8 @@ public class ShipModel : MonoBehaviour
     {
         this.Energy.Value = DefaultEnergy;
         this.BaseSpeed.Value = DefaultSpeed;
+        this.RemainBoostCount.Value = MaxBoostCount;
+        this.Broken.Value = false;
     }
 
     public void AddEnergy(float energy)
@@ -61,8 +74,25 @@ public class ShipModel : MonoBehaviour
     /// </summary>
     public void Boost()
     {
-        AddEnergy(guage.Power.Value);
-        guage.Init();
+        if (CanBoost.Value)
+        {
+            RemainBoostCount.Value--;
+
+            var energy = guage.Power.Value;
+            bool powerOver = energy > GuageModel.BrokenPowerThrethold;
+
+            if (powerOver)
+            {
+                //即死
+                Broken.Value = true;
+            }
+            else
+            {
+                //加速
+                AddEnergy(energy);
+                guage.Init();
+            }
+        }
     }
 
 

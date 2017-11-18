@@ -16,12 +16,16 @@ public class GameStateModel : MonoBehaviour
     public bool CurrentStateIsGamePlay { get { return CurrentState.Value == global::State.GamePlay; } }
     public bool CurrentStateIsResult { get { return CurrentState.Value == global::State.Result; } }
 
+    private void Awake()
+    {
+        ship.Clear();
+    }
+
     private void GameStart()
     {
         if (!CurrentStateIsTitle) return;
         ship.Clear();
         guage.Init();
-        guage.Show();
 
         CurrentState.Value = global::State.GamePlay;
     }

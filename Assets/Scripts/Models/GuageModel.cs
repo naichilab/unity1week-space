@@ -7,14 +7,20 @@ using Zenject;
 
 public class GuageModel : MonoBehaviour
 {
+    /// <summary>
+    /// 赤エリア
+    /// </summary>
+    public static float BrokenPowerThrethold = 0.88f;
+
+    /// <summary>
+    /// ゲージ基本速度
+    /// </summary>
+    private const float TimeToFull = 3f;
+
     [Inject] private GameStateModel state;
     [Inject] private ShipModel ship;
 
-    private float TimeToFull = 3f;
-
     public FloatReactiveProperty Power = new FloatReactiveProperty(0f);
-
-    public BoolReactiveProperty Visible = new BoolReactiveProperty(false);
 
     private void Update()
     {
@@ -32,18 +38,6 @@ public class GuageModel : MonoBehaviour
 
     public void Init()
     {
-        this.TimeToFull = 3f;
         this.Power.Value = 0f;
     }
-
-    public void Show()
-    {
-        this.Visible.Value = true;
-    }
-    public void Hide()
-    {
-        this.Visible.Value = false;
-    }
-
-
 }

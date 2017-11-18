@@ -35,6 +35,11 @@ public class GoButtonPresenter : MonoBehaviour
                     ship.Boost();
                 }
             });
+
+        ship.CanBoost.Subscribe(c =>
+        {
+            go.interactable = c;
+        });
     }
 
 }
