@@ -12,6 +12,10 @@ public class GuageModel : MonoBehaviour
     /// </summary>
     public static float BrokenPowerThrethold = 0.88f;
 
+    public static float PerfectPowerThrethold = 0.85f;
+
+    public static float GreatPowerThrethold = 0.75f;
+
     /// <summary>
     /// ゲージ基本速度
     /// </summary>

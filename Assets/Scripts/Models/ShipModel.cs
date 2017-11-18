@@ -17,6 +17,7 @@ public class ShipModel : MonoBehaviour
     private const float EnergyToSpeedRatio = 3f;
 
     [Inject] private GuageModel guage;
+    [Inject] private EffectSpawner effectSpawner;
 
     public FloatReactiveProperty Energy = new FloatReactiveProperty(DefaultEnergy);
     public FloatReactiveProperty BaseSpeed = new FloatReactiveProperty(DefaultSpeed);
@@ -79,12 +80,18 @@ public class ShipModel : MonoBehaviour
             RemainBoostCount.Value--;
 
             var energy = guage.Power.Value;
-            bool powerOver = energy > GuageModel.BrokenPowerThrethold;
 
-            if (powerOver)
+            EffectSpawner.EffectType effect = EffectSpawner.EffectType.miss;
+            if (energy < GuageModel.GreatPowerThrethold) effect = EffectSpawner.EffectType.good;
+            else if (energy < GuageModel.PerfectPowerThrethold) effect = EffectSpawner.EffectType.great;
+            else if (energy < GuageModel.BrokenPowerThrethold) effect = EffectSpawner.EffectType.perfect;
+
+            //エフェクト表示
+            effectSpawner.Show(effect);
+
+            if (effect == EffectSpawner.EffectType.miss)
             {
-                //即死
-                Broken.Value = true;
+
             }
             else
             {
