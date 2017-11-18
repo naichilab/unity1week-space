@@ -11,5 +11,7 @@ public class ScreenManager
         screenRect.y = tl.y;
         screenRect.width = (rd - tl).x;
         screenRect.height = (rd - tl).y;
+
+        Debug.Log(screenRect);
     }
 }

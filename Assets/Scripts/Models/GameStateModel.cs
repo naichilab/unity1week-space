@@ -1,4 +1,5 @@
-﻿using System.Collections;
+﻿using System;
+using System.Collections;
 using System.Collections.Generic;
 using naichilab;
 using UnityEngine;
@@ -21,9 +22,11 @@ public class GameStateModel : MonoBehaviour
     {
         ship.Clear();
 
-        ship.CanBoost.Subscribe(c =>
+        ship.IsGameOver
+            .Delay(TimeSpan.FromSeconds(2))
+            .Subscribe(c =>
         {
-            if (this.CurrentStateIsGamePlay && !c)
+            if (this.CurrentStateIsGamePlay && c)
             {
                 RankingLoader.Instance.SendScoreAndShowRanking(ship.SpeedToShow.Value);
             }

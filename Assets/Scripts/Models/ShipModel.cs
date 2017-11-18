@@ -28,7 +28,7 @@ public class ShipModel : MonoBehaviour
 
     public BoolReactiveProperty IsAccelerating = new BoolReactiveProperty(false);
 
-    public BoolReactiveProperty Broken = new BoolReactiveProperty();
+    public BoolReactiveProperty IsGameOver = new BoolReactiveProperty();
 
     private void Awake()
     {
@@ -41,27 +41,44 @@ public class ShipModel : MonoBehaviour
         {
             CanBoost.Value = c > 0;
         });
-    }
 
-    private void Update()
-    {
-        SpeedToShow.Value = BaseSpeed.Value * BaseSpeed.Value * 60 * 60;
-
-        if (this.Energy.Value >= 0f)
+        BaseSpeed.Subscribe(s =>
         {
-            float useEnergy = Mathf.Min(Time.deltaTime * UseRatio, this.Energy.Value);
+            SpeedToShow.Value = s * s * 60 * 60;
+        });
 
-            this.BaseSpeed.Value += useEnergy * EnergyToSpeedRatio;
-            this.Energy.Value -= useEnergy;
-        }
+        //加速
+        Observable.EveryUpdate()
+            .Subscribe(_ =>
+            {
+                if (this.Energy.Value >= 0f)
+                {
+                    float useEnergy = Mathf.Min(Time.deltaTime * UseRatio, this.Energy.Value);
+
+                    this.BaseSpeed.Value += useEnergy * EnergyToSpeedRatio;
+                    this.Energy.Value -= useEnergy;
+                }
+            });
+
+        //ゲームオーバー判定
+        Observable.EveryUpdate()
+            .Subscribe(_ =>
+            {
+                if (!CanBoost.Value && Energy.Value <= 0f)
+                {
+                    //燃料切れ＆加速終了
+                    this.IsGameOver.Value = true;
+                }
+            });
     }
+
 
     public void Clear()
     {
         this.Energy.Value = DefaultEnergy;
         this.BaseSpeed.Value = DefaultSpeed;
         this.RemainBoostCount.Value = MaxBoostCount;
-        this.Broken.Value = false;
+        this.IsGameOver.Value = false;
     }
 
     public void AddEnergy(float energy)
