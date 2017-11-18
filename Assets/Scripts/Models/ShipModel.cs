@@ -7,16 +7,29 @@ using Zenject;
 
 public class ShipModel : MonoBehaviour
 {
+    private const float DefaultEnergy = 0f;
+    private const float DefaultSpeed = 0f;
+
     //エネルギー消費率
     private const float UseRatio = 0.2f;
     //エネルギー消費に対するスピード増加量
-    private const float EnergyToSpeedRatio = 5f;
+    private const float EnergyToSpeedRatio = 3f;
 
     [Inject] private GuageModel guage;
 
-    public FloatReactiveProperty Energy = new FloatReactiveProperty(0f);
-    public FloatReactiveProperty BaseSpeed = new FloatReactiveProperty(1f);
-    public FloatReactiveProperty SpeedToShow = new FloatReactiveProperty(1f);
+    public FloatReactiveProperty Energy = new FloatReactiveProperty(DefaultEnergy);
+    public FloatReactiveProperty BaseSpeed = new FloatReactiveProperty(DefaultSpeed);
+    public FloatReactiveProperty SpeedToShow = new FloatReactiveProperty(DefaultSpeed);
+
+    public BoolReactiveProperty IsAccelerating = new BoolReactiveProperty(false);
+
+    private void Awake()
+    {
+        Energy.Subscribe(e =>
+        {
+            IsAccelerating.Value = Energy.Value > 0f;
+        });
+    }
 
     private void Update()
     {
@@ -33,8 +46,8 @@ public class ShipModel : MonoBehaviour
 
     public void Clear()
     {
-        this.Energy.Value = 0f;
-        this.BaseSpeed.Value = 1f;
+        this.Energy.Value = DefaultEnergy;
+        this.BaseSpeed.Value = DefaultSpeed;
     }
 
     public void AddEnergy(float energy)

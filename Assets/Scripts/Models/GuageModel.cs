@@ -8,6 +8,7 @@ using Zenject;
 public class GuageModel : MonoBehaviour
 {
     [Inject] private GameStateModel state;
+    [Inject] private ShipModel ship;
 
     private float TimeToFull = 3f;
 
@@ -19,7 +20,10 @@ public class GuageModel : MonoBehaviour
     {
         if (!state.CurrentStateIsGamePlay) return;
 
-        Power.Value += Time.deltaTime / TimeToFull;
+        var guageSpeed = (Time.deltaTime / TimeToFull) * ship.BaseSpeed.Value;
+        var minSpeed = (Time.deltaTime / TimeToFull) * 1;
+        var maxSpeed = (Time.deltaTime / TimeToFull) * 5;
+        Power.Value += Mathf.Clamp(guageSpeed, minSpeed, maxSpeed);
         if (Power.Value >= 1f)
         {
             Power.Value -= 1f;

@@ -322,8 +322,9 @@ GameObject:
   - component: {fileID: 523846422}
   - component: {fileID: 523846421}
   - component: {fileID: 523846423}
+  - component: {fileID: 523846424}
   m_Layer: 5
-  m_Name: Fire
+  m_Name: Boost
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -436,7 +437,7 @@ MonoBehaviour:
     m_TypeName: UnityEngine.Events.UnityEvent, UnityEngine, Version=0.0.0.0, Culture=neutral,
       PublicKeyToken=null
   delay: 0
-  duration: 0.3
+  duration: 0.1
   easeType: 10
   easeCurve:
     serializedVersion: 2
@@ -489,6 +490,17 @@ MonoBehaviour:
   optionalRotationMode: 0
   optionalScrambleMode: 0
   optionalString: 
+--- !u!114 &523846424
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 523846419}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 15ca1d48e9768ab49bc2889b0d49e1d0, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &528488204
 GameObject:
   m_ObjectHideFlags: 0
@@ -1311,7 +1323,6 @@ GameObject:
   - component: {fileID: 1534142165}
   - component: {fileID: 1534142169}
   - component: {fileID: 1534142170}
-  - component: {fileID: 1534142168}
   m_Layer: 0
   m_Name: GameManager
   m_TagString: Untagged
@@ -1343,17 +1354,6 @@ Transform:
   m_Father: {fileID: 0}
   m_RootOrder: 5
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!114 &1534142168
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_PrefabParentObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 0}
-  m_GameObject: {fileID: 1534142164}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 7f2bd66e05c7a5b47932bf8a94de619b, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
 --- !u!114 &1534142169
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1368,9 +1368,11 @@ MonoBehaviour:
   Energy:
     value: 0
   BaseSpeed:
-    value: 1
+    value: 0
   SpeedToShow:
-    value: 1
+    value: 0
+  IsAccelerating:
+    value: 0
 --- !u!114 &1534142170
 MonoBehaviour:
   m_ObjectHideFlags: 0
