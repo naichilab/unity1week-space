@@ -10,15 +10,18 @@ public class ShipModel : MonoBehaviour
     private const float DefaultEnergy = 0f;
     private const float DefaultSpeed = 0f;
     private const int MaxBoostCount = 5;
+    private const bool IsDebug = true;
 
     //エネルギー消費率
-    private const float UseRatio = 0.35f;
+    private const float UseRatio = 1f;
     //エネルギー消費に対するスピード増加量
-    private const float EnergyToSpeedRatio = 3f;
+    private const float EnergyToSpeedRatio = 5f;
 
     [Inject] private GuageModel guage;
     [Inject] private EffectSpawner effectSpawner;
     [Inject] private ShipModel ship;
+
+    
 
     public FloatReactiveProperty Energy = new FloatReactiveProperty(DefaultEnergy);
     public FloatReactiveProperty BaseSpeed = new FloatReactiveProperty(DefaultSpeed);
@@ -98,6 +101,11 @@ public class ShipModel : MonoBehaviour
             RemainBoostCount.Value--;
 
             var energy = guage.Power.Value;
+
+            if (IsDebug)
+            {
+                energy = 0.879f;
+            }
 
             EffectSpawner.EffectType effect = EffectSpawner.EffectType.miss;
             var effectBonus = 1f;
