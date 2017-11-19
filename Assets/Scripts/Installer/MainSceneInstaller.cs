@@ -12,8 +12,6 @@ public class MainSceneInstaller : MonoInstaller<MainSceneInstaller>
 
     public override void InstallBindings()
     {
-        Container.Bind<ScreenManager>().AsSingle();
-
         Container.Bind<GameStateModel>().FromInstance(state).AsSingle();
         Container.Bind<ShipModel>().FromInstance(ship).AsSingle();
         Container.Bind<GuageModel>().FromInstance(guage).AsSingle();

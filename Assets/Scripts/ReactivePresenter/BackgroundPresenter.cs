@@ -7,14 +7,14 @@ using UniRx;
 
 public class BackgroundPresenter : MonoBehaviour
 {
-    private List<DontShowScreenReset> rects = new List<DontShowScreenReset>();
+    private List<BackgroundScroll> rects = new List<BackgroundScroll>();
 
 
     [Inject] private ShipModel ship;
 
     void Awake()
     {
-        this.rects = gameObject.GetComponentsInChildren<DontShowScreenReset>().ToList();
+        this.rects = gameObject.GetComponentsInChildren<BackgroundScroll>().ToList();
 
         //speedを背景スクロールに適用
         ship.BaseSpeed.Subscribe(speed =>
