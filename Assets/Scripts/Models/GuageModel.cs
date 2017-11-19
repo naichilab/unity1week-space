@@ -30,7 +30,7 @@ public class GuageModel : MonoBehaviour
     {
         if (!state.CurrentStateIsGamePlay) return;
 
-        var guageSpeed = (Time.deltaTime / TimeToFull) * ship.BaseSpeed.Value;
+        var guageSpeed = (Time.deltaTime / TimeToFull) * Mathf.Sqrt(ship.BaseSpeed.Value);
         var minSpeed = (Time.deltaTime / TimeToFull) * 1;
         var maxSpeed = (Time.deltaTime / TimeToFull) * 5;
         Power.Value += Mathf.Clamp(guageSpeed, minSpeed, maxSpeed);

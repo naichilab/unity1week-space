@@ -19,7 +19,8 @@ public class BackgroundPresenter : MonoBehaviour
         //speedを背景スクロールに適用
         ship.BaseSpeed.Subscribe(speed =>
         {
-            rects.ForEach(r => r.Speed = speed * speed);
+            var s = Mathf.Clamp(speed * speed, 0f, 500f);
+            rects.ForEach(r => r.Speed = s);
         });
     }
 

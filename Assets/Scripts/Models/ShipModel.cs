@@ -18,6 +18,7 @@ public class ShipModel : MonoBehaviour
 
     [Inject] private GuageModel guage;
     [Inject] private EffectSpawner effectSpawner;
+    [Inject] private ShipModel ship;
 
     public FloatReactiveProperty Energy = new FloatReactiveProperty(DefaultEnergy);
     public FloatReactiveProperty BaseSpeed = new FloatReactiveProperty(DefaultSpeed);
@@ -99,12 +100,49 @@ public class ShipModel : MonoBehaviour
             var energy = guage.Power.Value;
 
             EffectSpawner.EffectType effect = EffectSpawner.EffectType.miss;
-            if (energy < GuageModel.GreatPowerThrethold) effect = EffectSpawner.EffectType.good;
-            else if (energy < GuageModel.PerfectPowerThrethold) effect = EffectSpawner.EffectType.great;
-            else if (energy < GuageModel.BrokenPowerThrethold) effect = EffectSpawner.EffectType.perfect;
+            var effectBonus = 1f;
+
+            if (energy < GuageModel.GreatPowerThrethold)
+            {
+                effect = EffectSpawner.EffectType.good;
+                effectBonus = 1f;
+            }
+            else if (energy < GuageModel.PerfectPowerThrethold)
+            {
+                effect = EffectSpawner.EffectType.great;
+                effectBonus = 1.2f;
+            }
+            else if (energy < GuageModel.BrokenPowerThrethold)
+            {
+                effect = EffectSpawner.EffectType.perfect;
+                effectBonus = 1.5f;
+            }
+            else
+            {
+                effect = EffectSpawner.EffectType.miss;
+                effectBonus = 0f;
+            }
+
+            //bonus
+            Debug.Log("Energy : " + energy);
+            Debug.Log("  Effect : " + effect.ToString());
+
+            var currentSpeedBonus = Mathf.Max(1f, Mathf.Sqrt(ship.BaseSpeed.Value));
+            Debug.Log("  SpeedBonus : " + currentSpeedBonus);
+
+            Debug.Log("  EffectBonus : " + effectBonus);
+
+            var totalEnergy = energy * currentSpeedBonus * effectBonus;
+
+            Debug.Log("  Total : " + totalEnergy);
+
 
             //エフェクト表示
             effectSpawner.Show(effect);
+
+            //加速
+            AddEnergy(totalEnergy);
+            guage.Init();
 
             if (effect == EffectSpawner.EffectType.miss)
             {
@@ -112,9 +150,6 @@ public class ShipModel : MonoBehaviour
             }
             else
             {
-                //加速
-                AddEnergy(energy);
-                guage.Init();
 
             }
         }
