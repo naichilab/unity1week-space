@@ -10,7 +10,7 @@ public class ShipModel : MonoBehaviour
     private const float DefaultEnergy = 0f;
     private const float DefaultSpeed = 0f;
     private const int MaxBoostCount = 5;
-    private const bool IsDebug = true;
+    private const bool IsDebug = false;
 
     //エネルギー消費率
     private const float UseRatio = 1f;
@@ -21,7 +21,7 @@ public class ShipModel : MonoBehaviour
     [Inject] private EffectSpawner effectSpawner;
     [Inject] private ShipModel ship;
 
-    
+
 
     public FloatReactiveProperty Energy = new FloatReactiveProperty(DefaultEnergy);
     public FloatReactiveProperty BaseSpeed = new FloatReactiveProperty(DefaultSpeed);
