@@ -38,13 +38,13 @@ public class GameStateModel : MonoBehaviour
             switch (s)
             {
                 case State.Title:
-                    BgmManager.Instance.Play("title_bgm_maoudamashii_neorock78");
+                    BgmManager.Instance.Play("GGR_bgm02_result");
                     break;
                 case State.GamePlay:
-                    BgmManager.Instance.Play("gameplay_bgm_maoudamashii_neorock83");
+                    BgmManager.Instance.Play("GGR_bgm01_main");
                     break;
                 case State.Result:
-                    BgmManager.Instance.Play("result_bgm_maoudamashii_neorock77");
+                    BgmManager.Instance.Play("GGR_bgm02_result");
                     break;
                 default:
                     throw new NotImplementedException();

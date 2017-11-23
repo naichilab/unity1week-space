@@ -148,6 +148,9 @@ public class ShipModel : MonoBehaviour
             //エフェクト表示
             effectSpawner.Show(effect);
 
+            //音
+            SeManager.Instance.Play(effect.ToString());
+
             //加速
             AddEnergy(totalEnergy);
             guage.Init();
