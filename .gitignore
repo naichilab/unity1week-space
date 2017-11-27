@@ -32,6 +32,8 @@ sysinfo.txt
 # Builds
 *.apk
 *.unitypackage
+WindowsRelease.exe
+WindowsRelease_Data/
 
 #AssetStore assets
 Asteroid Game Pack.meta
